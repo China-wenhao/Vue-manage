@@ -1,11 +1,35 @@
 export default {
-    state:{
-        iscollapse:false
+    state: {
+        iscollapse: false,
+        tabList: [
+            {
+                path: "/",
+                name: "home",
+                label: "首页",
+                icon: "home"
+            }
+        ],
+        currentMenu: null
     },
-    mutations:{
-        collapseMenu(state){
+    mutations: {
+        collapseMenu(state) {
             // console.log(state);
-            state.iscollapse=!state.iscollapse
+            state.iscollapse = !state.iscollapse
+        },
+        selectMenu(state,val){
+            if(val.name!=="home"){
+                state.currentMenu=val
+                const result= state.tabList.findIndex(item => item.name===val.name)
+                if(result === -1){
+                    state.tabList.push(val)
+                }
+            }else{
+                state.currentMenu=null
+            }
+        },
+        closeTag(state,val){
+           const result = state.tabList.findIndex(item=>item.name===val.name)
+           state.tabList.splice(result,1)
         }
     }
 }

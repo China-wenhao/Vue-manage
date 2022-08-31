@@ -1,10 +1,5 @@
 <template>
   <div>
-     <!-- 开启关闭按钮 -->
-    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group> -->
     <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
     background-color="#545c64"
     text-color="#fff"
@@ -23,7 +18,7 @@
           <span slot="title">{{item.label}}</span>
         </template>
         <el-menu-item-group v-for="subItem in item.children"  index="item.path + '' " :key="subItem.path">
-          <el-menu-item >{{subItem.label}}</el-menu-item>
+          <el-menu-item  @click="clickMenu(subItem)" >{{subItem.label}}</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
@@ -91,6 +86,7 @@ export default {
       this.$router.push({
         name:item.name
       })
+      this.$store.commit("selectMenu",item)
     }
   },
   // mounted(){

@@ -19,6 +19,21 @@ const routes=[
                 name:"user",
                 component:()=>import('@/Vues/user')
             },
+            {
+                path:"/mall",
+                name:"mall",
+                component:()=>import('@/Vues/mall')
+            },
+            {
+                path:"/page1",
+                name:"page1",
+                component:()=>import('@/Vues/other/page1')
+            },
+            {
+                path:"/page2",
+                name:"page2",
+                component:()=>import('@/Vues/other/page2')
+            },
         ]
     },
 ]

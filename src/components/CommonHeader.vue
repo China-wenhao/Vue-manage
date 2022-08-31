@@ -2,10 +2,11 @@
     <div>
         <header>
             <div class="l-content">
-                <el-button plain icon="el-icon-menu" size="mini"
-                @click="handdleMenu"
-                ></el-button>
-                <h3 style="color:#fff">首页</h3>
+                <el-button plain icon="el-icon-menu" size="mini" @click="handdleMenu"></el-button>
+                <!-- <h3 style="color:#fff">首页</h3> -->
+                <el-breadcrumb separator="/">
+                    <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }">{{item.label}}</el-breadcrumb-item>
+                </el-breadcrumb>
             </div>
             <div class="r-content">
                 <el-dropdown trigger="click" size="mini">
@@ -23,6 +24,7 @@
 </template>
  
 <script>
+import { mapState } from 'vuex'
 export default {
     name: "CommonHeader",
     data() {
@@ -30,56 +32,54 @@ export default {
             userImg: require('../assets/images/user.png')
         }
     },
-    methods:{
-        handdleMenu(){
+    methods: {
+        handdleMenu() {
             this.$store.commit('collapseMenu')
         }
+    },
+    computed: {
+        ...mapState({
+            tags: state => state.tab.tabList
+        })
     }
 }
 </script>
 
 <style lang="less" scoped>
-header {
-    display: flex;
-    height: 100%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.l-content {
-    display: flex;
-    align-items: center;
-
-    .el-button {
-        margin-right: 20px
+    header {
+        display: flex;
+        height: 100%;
+        justify-content: space-between;
+        align-items: center;
     }
-}
-
-.r-content {
-    .user {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-    }
-}
-
- .el-breadcrumb__item {
-    .el-breadcrumb__inner {
-        font-weight: normal;
-
-        &.is-link {
-            color: #666
-        }
-
-        a {
-            color: #666
+    .l-content {
+        display: flex;
+        align-items: center;
+        .el-button {
+            margin-right: 20px
         }
     }
-
-    &:last-child {
+    .r-content {
+        .user {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+    /deep/ .el-breadcrumb__item {
         .el-breadcrumb__inner {
-            color: #fff;
+            font-weight: normal;
+            &.is-link {
+                color: #666
+            }
+            a {
+                color: #666
+            }
+        }
+        &:last-child {
+            .el-breadcrumb__inner {
+                color: #fff;
+            }
         }
     }
-}
-</style>
+    </style>
